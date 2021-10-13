@@ -6,7 +6,7 @@
 #    By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/20 19:57:08 by fgata-va          #+#    #+#              #
-#    Updated: 2021/09/29 22:57:11 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/10/04 14:00:51 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ OBJS = ${SRC:.c=.o}
 
 $(NAME): $(OBJS)
 	gcc -Wall -Werror -Wextra -I. $(OBJS) -o $(NAME)
+
+norm:
+	norminette $(SRC) *.h
 
 all: $(NAME)
 
