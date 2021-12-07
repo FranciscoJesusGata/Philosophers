@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:24:14 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/11 18:30:32 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/15 10:34:04 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_info
 typedef struct	s_fork
 {
 	int available;
-	pthread_mutex_t *lock;
+	pthread_mutex_t lock;
 }				t_fork;
 
 typedef struct	s_philosopher
@@ -41,5 +41,7 @@ typedef struct	s_philosopher
 	int left_fork;
 	int right_fork;
 }				t_philosopher;
+
+int	ft_atoi(const char *str);
 
 #endif
