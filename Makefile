@@ -6,7 +6,7 @@
 #    By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/20 19:57:08 by fgata-va          #+#    #+#              #
-#    Updated: 2021/12/08 17:03:38 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/12/08 18:47:45 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS := -Wall -Werror -Wextra -I$(INCLUDE_DIR)/ -g
 
 NAME := philo
 
-SRC := $(addprefix $(SRCDIR)/, philo.c philo_utils_1.c restaurant_service.c)
+SRC := $(addprefix $(SRCDIR)/, philo.c philo_utils_1.c restaurant_service.c\
+		philo_behaviour.c)
 
 OBJS := $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SRC:.c=.o))
 
