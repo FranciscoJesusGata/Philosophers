@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:58:20 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/13 19:16:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:50:24 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,42 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)(resp * n));
+}
+
+bool	ft_isnumer(const char *str)
+{
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str)
+	{
+		if (*str < 48 || *str > 57)
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
+size_t	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i++])
+		;
+	return (i);
+}
+int		ft_putstr_fd(char *str, int fd)
+{
+	return (write(fd, str, ft_strlen(str)));
+}
+
+void	print_error(char *msg)
+{
+	if (msg)
+	{
+		ft_putstr_fd("Error: ", 2);
+		ft_putstr_fd(msg, 2);
+	}
+	else
+		printf("Error\n");
 }
