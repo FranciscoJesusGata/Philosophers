@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/08 16:55:57 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:12:00 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 		general_info->time_to_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
 			general_info->times_must_eat = ft_atoi(argv[5]);
+		else
+			general_info->times_must_eat = -1;
 		return (1);
 	}
 	return (0);

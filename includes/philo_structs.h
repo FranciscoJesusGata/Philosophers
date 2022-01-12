@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:24:14 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/08 19:17:01 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:05:38 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_fork
 typedef struct s_philosopher
 {
 	int				philosopher_number;
+	t_info			*info;
 	pthread_t		thread;
 	t_state			state;
 	struct timeval	last_meal;

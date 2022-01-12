@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:04:31 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/08 19:18:19 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:14:41 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_philosopher	*sit_guests(t_fork *forks,
 	while (i < info->number_of_philosophers)
 	{
 		philosophers[i].philosopher_number = i;
+		philosophers[i].info = info;
 		philosophers[i].state = hungry;
 		philosophers[i].left_hand = false;
 		philosophers[i].right_hand = false;
@@ -80,8 +81,8 @@ void	start_dinner(t_philosopher *philosophers, int number_of_philosophers)
 	i = 0;
 	while (i < number_of_philosophers)
 	{
-		pthead_create(philosophers[i].thread, NULL, philo_behaviour,
-			philosophers[i]);
+		pthread_create(&philosophers[i].thread, NULL, philo_behaviour,
+			(void *)&philosophers[i]);
 		i++;
 	}
 }
