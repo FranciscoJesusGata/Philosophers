@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   restaurant_service.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:04:31 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/12 12:14:41 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:09:28 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ t_fork	*place_forks(int number_of_philosophers)
 		return (NULL);
 	while (i < number_of_philosophers)
 	{
-		forks[i].available = 1;
+		forks[i].available = true;
 		pthread_mutex_init(&forks[i].lock, NULL);
 		i++;
 	}
 	return (forks);
 }
 
-t_philosopher	*sit_guests(t_fork *forks,
-		t_info *info)
+t_philosopher	*sit_guests(t_fork *forks, t_info *info)
 {
 	int i;
 	t_philosopher *philosophers;
@@ -46,6 +45,7 @@ t_philosopher	*sit_guests(t_fork *forks,
 		philosophers[i].philosopher_number = i;
 		philosophers[i].info = info;
 		philosophers[i].state = hungry;
+		philosophers[i].meals = 0;
 		philosophers[i].left_hand = false;
 		philosophers[i].right_hand = false;
 		philosophers[i].left_fork = &forks[i];

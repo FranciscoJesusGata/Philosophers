@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/12 12:12:00 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:39:51 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,40 @@ time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 	return (0);
 }
 
+void	main_loop(t_philosopher *philosophers, int philo_num)
+{
+	int	i;
+
+	i = 0;
+	while (philosophers[i].state != dead)
+	{
+		if (i == philo_num - 1)
+			i = 0;
+		else
+			i++;
+	}
+	pthread_join(philosophers[i].thread,NULL);
+}
+
 int	main(int argc, char *argv[])
 {
-	t_info general_info;
-	t_philosopher *philosophers;
-	t_fork *forks;
+	t_info			general_info;
+	t_philosopher	*philosophers;
+	t_fork			*forks;
 
-	if ((parse_input(&general_info, argc, argv)))
+	if (!(parse_input(&general_info, argc, argv)))
+		return (1);
+	forks = place_forks(general_info.number_of_philosophers);
+	if (!forks)
+		return (1);
+	philosophers = sit_guests(forks, &general_info);
+	if (!philosophers)
 	{
-		forks = place_forks(general_info.number_of_philosophers);
-		if (!forks)
-			return (1);
-		philosophers = sit_guests(forks, &general_info);
-		if (!philosophers)
-		{
-			dismiss_guests(philosophers, forks,
-				general_info.number_of_philosophers);
-			return (1);
-		}
 		dismiss_guests(philosophers, forks,
 			general_info.number_of_philosophers);
-		//system("leaks philo");
-		return (0);
+		return (1);
 	}
-	return (1);
+	start_dinner(philosophers, general_info.number_of_philosophers);
+	main_loop(philosophers, general_info.number_of_philosophers);
+	return (0);
 }

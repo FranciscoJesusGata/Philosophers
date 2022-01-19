@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 19:57:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/17 12:59:46 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:50:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_state(int guest, int time, t_state state, pthread_mutex_t *lock);
 int				ft_atoi(const char *str);
 bool			ft_isnumer(const char *str);
 void			print_error(char *msg);
-float			time_diff(struct timeval *time);
+int			time_diff(struct timeval *time);
 
 /*
 ** Memory management
