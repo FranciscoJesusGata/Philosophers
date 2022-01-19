@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 18:52:57 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:59:12 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,23 @@ time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 void	main_loop(t_philosopher *philosophers, int philo_num, t_info *info)
 {
 	int	i;
+	int	finished;
 
 	i = 0;
-	while (philosophers[i].state != dead)
+	finished = 0;
+	while (philosophers[i].state != dead && finished != info->number_of_philosophers)
 	{
 		if (i == philo_num - 1)
+		{
 			i = 0;
+			finished = 0;
+		}
 		else
+		{
+			if (philosophers[i].meals == info->times_must_eat)
+				finished++;
 			i++;
+		}
 	}
 	i = 0;
 	while (philosophers[i].state != dead)

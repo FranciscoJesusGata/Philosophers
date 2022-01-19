@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:31:33 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 18:26:06 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:13:48 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,12 @@ void	eat(t_philosopher *philo, struct timeval *start)
 	gettimeofday(&philo->last_meal, NULL);
 	sleep_or_die(philo->info->time_to_eat, time_diff(&philo->last_meal),
 		philo->info->time_to_die, &philo->state);
+	philo->meals++;
 }
 
+void	think(t_philosopher *philo, struct timeval *start)
+{
+	print_state(philo->philosopher_number, time_diff(start),
+		philo->state, &philo->info->print_status);
+	philo->state = hungry;
+}

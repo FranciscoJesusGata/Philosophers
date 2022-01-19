@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:24:14 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 16:29:25 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:57:10 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_philosopher
 	pthread_t		thread;
 	t_state			state;
 	struct timeval	last_meal;
-	id_t			meals;
+	int				meals;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	bool			left_hand;
