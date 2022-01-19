@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:31:33 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 17:48:51 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:26:06 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void	print_state(int guest, int time, t_state state, pthread_mutex_t *lock)
 		pthread_mutex_unlock(lock);
 }
 
-void	go_to_sleep(t_philosopher *philo)
+void	go_to_sleep(t_philosopher *philo, struct timeval *start)
 {
-	print_state(philo->philosopher_number, time_diff(&philo->last_meal),
+	print_state(philo->philosopher_number, time_diff(start),
 		philo->state, &philo->info->print_status);
 	sleep_or_die(philo->info->time_to_sleep, time_diff(&philo->last_meal),
 		philo->info->time_to_die, &philo->state);
 }
 
-void	eat(t_philosopher *philo)
+void	eat(t_philosopher *philo, struct timeval *start)
 {
-	print_state(philo->philosopher_number, time_diff(&philo->last_meal),
+	print_state(philo->philosopher_number, time_diff(start),
 		philo->state, &philo->info->print_status);
 	gettimeofday(&philo->last_meal, NULL);
 	sleep_or_die(philo->info->time_to_eat, time_diff(&philo->last_meal),
