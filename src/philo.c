@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 19:59:12 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:30:45 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,14 @@ void	main_loop(t_philosopher *philosophers, int philo_num, t_info *info)
 	finished = 0;
 	while (philosophers[i].state != dead && finished != info->number_of_philosophers)
 	{
-		if (i == philo_num - 1)
-		{
-			i = 0;
+		if (i == 0)
 			finished = 0;
-		}
+		if (philosophers[i].meals == info->times_must_eat)
+			finished++;
+		if (i == philo_num - 1)
+			i = 0;
 		else
-		{
-			if (philosophers[i].meals == info->times_must_eat)
-				finished++;
 			i++;
-		}
 	}
 	i = 0;
 	while (philosophers[i].state != dead)

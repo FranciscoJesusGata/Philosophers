@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 20:16:19 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:29:44 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,10 @@ void	*philo_behaviour(void *input)
 			think(philo, &start);
 		if (philo->state != dead
 			&& time_diff(&philo->last_meal) >= philo->info->time_to_die)
-		{
 			philo->state = dead;
-			print_state(philo->philosopher_number, time_diff(&start),
-				philo->state, &philo->info->print_status);
-		}
-	}		
+	}
+	if (philo->state == dead)
+		print_state(philo->philosopher_number, time_diff(&start), dead,
+			&philo->info->print_status);
 	return (NULL);
 }
