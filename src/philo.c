@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 12:39:51 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:44:27 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 	return (0);
 }
 
-void	main_loop(t_philosopher *philosophers, int philo_num)
+void	main_loop(t_philosopher *philosophers, int philo_num, t_info *info)
 {
 	int	i;
 
@@ -62,7 +62,13 @@ void	main_loop(t_philosopher *philosophers, int philo_num)
 		else
 			i++;
 	}
-	pthread_join(philosophers[i].thread,NULL);
+	i = 0;
+	while (philosophers[i].state != dead)
+	{
+		pthread_detach(philosophers[i].thread);
+		i++;
+	}
+	pthread_mutex_destroy(&info->print_status);
 }
 
 int	main(int argc, char *argv[])
@@ -84,6 +90,6 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	start_dinner(philosophers, general_info.number_of_philosophers);
-	main_loop(philosophers, general_info.number_of_philosophers);
+	main_loop(philosophers, general_info.number_of_philosophers, &general_info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:31:33 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 16:30:38 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:48:51 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ void	go_to_sleep(t_philosopher *philo)
 		philo->state, &philo->info->print_status);
 	sleep_or_die(philo->info->time_to_sleep, time_diff(&philo->last_meal),
 		philo->info->time_to_die, &philo->state);
-	if (philo->state != dead)
-	{
-		print_state(philo->philosopher_number, time_diff(&philo->last_meal),
-			philo->state, &philo->info->print_status);
-		philo->state = hungry;
-	}
 }
 
 void	eat(t_philosopher *philo)
