@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 20:29:44 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:17:26 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	catch_forks(t_philosopher *philo, struct timeval *start)
 		philo->left_hand = true;
 		philo->left_fork->available = false;
 		print_state(philo->philosopher_number, time_diff(start),
-				4, &philo->info->print_status);
+				4, philo->info);
 		philo->right_hand = true;
 		philo->right_fork->available = false;
 		print_state(philo->philosopher_number, time_diff(start),
-				4, &philo->info->print_status);
+				4, philo->info);
 	}
 	pthread_mutex_unlock(&philo->left_fork->lock);
 	pthread_mutex_unlock(&philo->right_fork->lock);
@@ -74,7 +74,7 @@ void	*philo_behaviour(void *input)
 			philo->state = dead;
 	}
 	if (philo->state == dead)
-		print_state(philo->philosopher_number, time_diff(&start), dead,
-			&philo->info->print_status);
+		print_state(philo->philosopher_number, time_diff(&start),
+		dead, philo->info);
 	return (NULL);
 }

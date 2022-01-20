@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 19:57:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 20:10:48 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/20 10:13:36 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # include <stdbool.h>
 # include "philo_structs.h"
 
-void	*philo_behaviour(void *input);
-void	start_dinner(t_philosopher *philosophers, int number_of_philosophers);
-void	eat(t_philosopher *philo, struct timeval *start);
-void	go_to_sleep(t_philosopher *philo, struct timeval *start);
-void	think(t_philosopher *philo, struct timeval *start);
-void	print_state(int guest, int time, t_state state, pthread_mutex_t *lock);
+void			*philo_behaviour(void *input);
+void			start_dinner(t_philosopher *philosophers, int number_of_philosophers);
+void			eat(t_philosopher *philo, struct timeval *start);
+void			go_to_sleep(t_philosopher *philo, struct timeval *start);
+void			think(t_philosopher *philo, struct timeval *start);
+void			print_state(int guest, int time, t_state state, t_info *info);
 
 /*
 ** Utils Functions
@@ -34,7 +34,7 @@ void	print_state(int guest, int time, t_state state, pthread_mutex_t *lock);
 int				ft_atoi(const char *str);
 bool			ft_isnumer(const char *str);
 void			print_error(char *msg);
-int			time_diff(struct timeval *time);
+int				time_diff(struct timeval *time);
 
 /*
 ** Memory management

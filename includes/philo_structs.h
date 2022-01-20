@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:24:14 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 19:57:10 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/20 10:58:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				times_must_eat;
-	int				crash_the_party;
+	bool			crash_the_party;
 }					t_info;
 
 typedef struct s_fork
