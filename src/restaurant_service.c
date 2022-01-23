@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:04:31 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/20 11:00:27 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:30:18 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_philosopher	*sit_guests(t_fork *forks, t_info *info)
 }
 
 void	dismiss_guests(t_philosopher *philosophers, t_fork *forks,
-		int number_of_philosophers)
+		int number_of_philosophers, t_info *info)
 {
 	int	i;
 
@@ -72,6 +72,7 @@ void	dismiss_guests(t_philosopher *philosophers, t_fork *forks,
 		i++;
 	}
 	free(forks);
+	pthread_mutex_destroy(&info->print_status);
 }
 
 void	start_dinner(t_philosopher *philosophers, int number_of_philosophers)

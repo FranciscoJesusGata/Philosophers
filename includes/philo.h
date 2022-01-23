@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 19:57:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/20 10:13:36 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:21:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void			start_dinner(t_philosopher *philosophers, int number_of_philosophers);
 void			eat(t_philosopher *philo, struct timeval *start);
 void			go_to_sleep(t_philosopher *philo, struct timeval *start);
 void			think(t_philosopher *philo, struct timeval *start);
-void			print_state(int guest, int time, t_state state, t_info *info);
+void			print_state(int guest, long time, t_state state, t_info *info);
+void			fork_print(int guest, long timestamp, pthread_mutex_t *lock,
+					bool *crash_the_party);
 
 /*
 ** Utils Functions
@@ -34,7 +36,7 @@ void			print_state(int guest, int time, t_state state, t_info *info);
 int				ft_atoi(const char *str);
 bool			ft_isnumer(const char *str);
 void			print_error(char *msg);
-int				time_diff(struct timeval *time);
+long			time_diff(struct timeval *time);
 
 /*
 ** Memory management
@@ -42,6 +44,6 @@ int				time_diff(struct timeval *time);
 t_fork			*place_forks(int number_of_philosophers);
 t_philosopher	*sit_guests(t_fork *forks, t_info *info);
 void			dismiss_guests(t_philosopher *philosophers, t_fork *forks,
-					int number_of_philosophers);
+					int number_of_philosophers, t_info *info);
 
 #endif

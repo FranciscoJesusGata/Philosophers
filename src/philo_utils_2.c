@@ -6,13 +6,13 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 12:37:44 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/19 14:53:58 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 18:50:05 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		time_diff(struct timeval *time)
+long	time_diff(struct timeval *time)
 {
 	struct timeval	current_time;
 

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/20 12:40:49 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:19:46 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,38 +60,41 @@ void	massacre(t_philosopher *philosophers, int philo_num)
 	while (i != philo_num)
 	{
 		philosophers[i].state = dead;
-		pthread_detach(philosophers[i].thread);
 		i++;
 	}
 }
 
-void	dinner_vigilance(t_philosopher *philosophers, int philo_num, t_info *info)
+void	dinner_vigilance(t_philosopher *philosophers, int philo_num)
 {
 	int	i;
 	int	finished;
 
 	i = 0;
 	finished = 0;
-	while (philosophers[i].state != dead && finished != philo_num)
+	while (philosophers[i].state != dead)
 	{
-		if (i == 0)
-			finished = 0;
-		if (philosophers[i].meals == info->times_must_eat)
-			finished++;
 		if (i == philo_num - 1)
 			i = 0;
 		else
 			i++;
 	}
-	usleep(2000);
+	usleep(1e3);
 }
 
 void	main_loop(t_philosopher *philosophers, int philo_num, t_info *info)
 {
-	dinner_vigilance(philosophers, philo_num, info);
+	dinner_vigilance(philosophers, philo_num);
+	massacre(philosophers, philo_num);
 	info->crash_the_party = true;
 	pthread_mutex_unlock(&info->print_status);
-	massacre(philosophers, philo_num);
+	int i;
+
+	i = 0;
+	while (i != philo_num)
+	{
+		pthread_join(philosophers[i].thread, NULL);
+		i++;
+	}
 }
 
 int	main(int argc, char *argv[])
@@ -109,11 +112,11 @@ int	main(int argc, char *argv[])
 	if (!philosophers)
 	{
 		dismiss_guests(philosophers, forks,
-			info.number_of_philosophers);
+			info.number_of_philosophers, &info);
 		return (1);
 	}
 	start_dinner(philosophers, info.number_of_philosophers);
 	main_loop(philosophers, info.number_of_philosophers, &info);
-	dismiss_guests(philosophers, forks, info.number_of_philosophers);
+	dismiss_guests(philosophers, forks, info.number_of_philosophers, &info);
 	return (0);
 }
