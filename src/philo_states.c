@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:31:33 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 21:20:57 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:53:46 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sleep_or_die(int wait, t_philosopher *philo)
 		philo->state = dead;
 	else if (philo->state == hungry)
 		philo->state = sleepy;
-	else
+	else if (philo->state == sleepy)
 		philo->state = thoughtful;
 }
 
@@ -59,6 +59,7 @@ void	print_state(int guest, long time, t_state state, t_info *info)
 void	fork_print(int guest, long timestamp, pthread_mutex_t *lock, bool *crash_the_party)
 {
 	pthread_mutex_lock(lock);
+	*crash_the_party = *crash_the_party;
 	if (!*crash_the_party)
 		printf("[%ld]%d has taken a fork 🍴\n", timestamp, guest + 1);
 	pthread_mutex_unlock(lock);

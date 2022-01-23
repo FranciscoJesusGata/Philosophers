@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 21:21:14 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:55:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	take_forks(t_philosopher *philo, struct timeval *start)
 	if (philo->left_hand && philo->right_hand)
 	{
 		eat(philo, start);
-		leave_forks(philo);
+		if (philo->state != dead)
+			leave_forks(philo);
 	}
 }
 
@@ -94,7 +95,6 @@ void	*philo_behaviour(void *input)
 		else if (philo->state == thoughtful)
 			think(philo, &start);
 	}
-	leave_forks(philo);
 	if (philo->state == dead)
 		print_state(philo->philosopher_number, time_diff(&start),
 		dead, philo->info);
