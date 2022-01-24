@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:58:20 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/08 16:50:24 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:59:36 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ size_t	ft_strlen(char *str)
 		;
 	return (i);
 }
-int		ft_putstr_fd(char *str, int fd)
+
+int	ft_putstr_fd(char *str, int fd)
 {
 	return (write(fd, str, ft_strlen(str)));
 }

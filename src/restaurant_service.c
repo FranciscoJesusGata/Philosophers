@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:04:31 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 20:30:18 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:02:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_fork	*place_forks(int number_of_philosophers)
 {
-	int i;
-	t_fork *forks;
+	int		i;
+	t_fork	*forks;
 
 	i = 0;
 	forks = (t_fork *)malloc(sizeof(t_fork) * number_of_philosophers);
@@ -32,12 +32,12 @@ t_fork	*place_forks(int number_of_philosophers)
 
 t_philosopher	*sit_guests(t_fork *forks, t_info *info)
 {
-	int i;
-	t_philosopher *philosophers;
+	int				i;
+	t_philosopher	*philosophers;
 
 	i = 0;
 	philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
-		* info->number_of_philosophers);
+			* info->number_of_philosophers);
 	if (!philosophers)
 		return (NULL);
 	while (i < info->number_of_philosophers)

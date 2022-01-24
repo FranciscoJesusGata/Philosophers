@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/20 19:57:08 by fgata-va          #+#    #+#              #
-#    Updated: 2022/01/17 14:44:06 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/01/24 15:56:49 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CFLAGS := -Wall -Werror -Wextra -I$(INCLUDE_DIR)/ -g
 NAME := philo
 
 SRC := $(addprefix $(SRCDIR)/, philo.c restaurant_service.c philo_behaviour.c\
-		philo_states.c philo_utils_1.c philo_utils_2.c)
+		philo_states.c philo_utils_1.c philo_utils_2.c waiter.c megaphone.c)
 
 OBJS := $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SRC:.c=.o))
 

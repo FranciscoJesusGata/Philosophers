@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/24 14:44:25 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:54:16 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,17 @@ void	take_forks(t_philosopher *philo, struct timeval *start)
 {
 	if ((philo->philosopher_number + 1) != philo->info->number_of_philosophers)
 	{
-		catch_a_fork(philo, philo->left_fork, &philo->left_hand, time_diff(start));
-		catch_a_fork(philo, philo->right_fork, &philo->right_hand, time_diff(start));
+		catch_a_fork(philo, philo->left_fork, &philo->left_hand,
+			time_diff(start));
+		catch_a_fork(philo, philo->right_fork, &philo->right_hand,
+			time_diff(start));
 	}
 	else
 	{
-		catch_a_fork(philo, philo->right_fork, &philo->right_hand, time_diff(start));
-		catch_a_fork(philo, philo->left_fork, &philo->left_hand, time_diff(start));
+		catch_a_fork(philo, philo->right_fork, &philo->right_hand,
+			time_diff(start));
+		catch_a_fork(philo, philo->left_fork, &philo->left_hand,
+			time_diff(start));
 	}
 	if (philo->state != dead && philo->left_hand && philo->right_hand)
 	{
