@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 19:57:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 21:21:03 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:20:52 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 # include "philo_structs.h"
 
 void			*philo_behaviour(void *input);
-void			start_dinner(t_philosopher *philosophers, int number_of_philosophers);
+void			start_dinner(t_philosopher *philosophers, int philo_num);
 void			eat(t_philosopher *philo, struct timeval *start);
 void			go_to_sleep(t_philosopher *philo, struct timeval *start);
 void			think(t_philosopher *philo, struct timeval *start);
-void			print_state(int guest, long time, t_state state, t_info *info);
-void			fork_print(int guest, long timestamp, pthread_mutex_t *lock,
-					bool *crash_the_party);
+void			print_state(t_philosopher *philo, long time, 
+					pthread_mutex_t *lock, bool *crash_the_party);
+void			fork_print(int guest, long timestamp,
+					pthread_mutex_t *lock, bool *crash_the_party);
 
 /*
 ** Utils Functions

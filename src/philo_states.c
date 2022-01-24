@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:31:33 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 22:53:46 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:24:10 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,25 @@ void	sleep_or_die(int wait, t_philosopher *philo)
 		philo->state = thoughtful;
 }
 
-void	print_state(int guest, long time, t_state state, t_info *info)
+void	print_state(t_philosopher *philo, long time, pthread_mutex_t *lock, bool *crash_the_party)
 {
-	pthread_mutex_lock(&info->print_status);
-	if (!info->crash_the_party)
+	pthread_mutex_lock(lock);
+	//printf("%d %s\n", guest + 1, info->crash_the_party ? "True" : "False");
+	if (!*crash_the_party)
 	{
-		if (state == hungry)
-			printf("[%ld]%d is eating 🍝\n", time, guest + 1);
-		else if (state == sleepy)
-			printf("[%ld]%d is sleeping 💤\n", time, guest + 1);
-		else if (state == thoughtful)
-			printf("[%ld]%d is thinking 💭\n", time, guest + 1);
-		else if (state == dead)
-			printf("[%ld]%d died 💀\n", time, guest + 1);
-		if (state != dead)
-			pthread_mutex_unlock(&info->print_status);
+		if (philo->state == hungry)
+			printf("[%ld]%d is eating 🍝\n", time, philo->philosopher_number + 1);
+		else if (philo->state == sleepy)
+			printf("[%ld]%d is sleeping 💤\n", time, philo->philosopher_number + 1);
+		else if (philo->state == thoughtful)
+			printf("[%ld]%d is thinking 💭\n", time, philo->philosopher_number + 1);
+		else if (philo->state == dead)
+			printf("[%ld]%d died 💀\n", time, philo->philosopher_number + 1);
+		if (philo->state != dead)
+			pthread_mutex_unlock(lock);
 	}
 	else
-		pthread_mutex_unlock(&info->print_status);
+		pthread_mutex_unlock(lock);
 }
 
 void	fork_print(int guest, long timestamp, pthread_mutex_t *lock, bool *crash_the_party)
@@ -67,23 +68,28 @@ void	fork_print(int guest, long timestamp, pthread_mutex_t *lock, bool *crash_th
 
 void	go_to_sleep(t_philosopher *philo, struct timeval *start)
 {
-	print_state(philo->philosopher_number, time_diff(start),
-		philo->state, philo->info);
-	sleep_or_die(philo->info->time_to_sleep, philo);
+	print_state(philo, time_diff(start),
+		&philo->info->print_status, &philo->info->crash_the_party);
+	if (philo->state != dead)
+		sleep_or_die(philo->info->time_to_sleep, philo);
 }
 
 void	eat(t_philosopher *philo, struct timeval *start)
 {
-	print_state(philo->philosopher_number, time_diff(start),
-		philo->state, philo->info);
-	gettimeofday(&philo->last_meal, NULL);
-	sleep_or_die(philo->info->time_to_eat, philo);
-	philo->meals++;
+	print_state(philo, time_diff(start),
+		&philo->info->print_status, &philo->info->crash_the_party);
+	if (philo->state != dead)
+	{
+		gettimeofday(&philo->last_meal, NULL);
+		sleep_or_die(philo->info->time_to_eat, philo);
+		philo->meals++;
+	}
 }
 
 void	think(t_philosopher *philo, struct timeval *start)
 {
-	print_state(philo->philosopher_number, time_diff(start),
-		philo->state, philo->info);
-	philo->state = hungry;
+	print_state(philo, time_diff(start),
+		&philo->info->print_status, &philo->info->crash_the_party);
+	if (philo->state != dead)
+		philo->state = hungry;
 }

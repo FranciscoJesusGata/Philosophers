@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/23 22:55:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:26:33 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	drop_fork(t_fork *fork, bool *hand)
 
 void	leave_forks(t_philosopher *philo)
 {
+	if (philo->state == dead)
+		return ;
 	pthread_mutex_lock(&philo->left_fork->lock);
 	pthread_mutex_lock(&philo->right_fork->lock);
 	philo->left_hand = false;
@@ -65,11 +67,10 @@ void	take_forks(t_philosopher *philo, struct timeval *start)
 		catch_a_fork(philo->left_fork, &philo->left_hand);
 	if (!philo->right_hand)
 		catch_a_fork(philo->left_fork, &philo->right_hand);*/
-	if (philo->left_hand && philo->right_hand)
+	if (philo->state != dead && philo->left_hand && philo->right_hand)
 	{
 		eat(philo, start);
-		if (philo->state != dead)
-			leave_forks(philo);
+		leave_forks(philo);
 	}
 }
 
@@ -96,7 +97,7 @@ void	*philo_behaviour(void *input)
 			think(philo, &start);
 	}
 	if (philo->state == dead)
-		print_state(philo->philosopher_number, time_diff(&start),
-		dead, philo->info);
+		print_state(philo, time_diff(&start), &philo->info->print_status,
+			&philo->info->crash_the_party);
 	return (NULL);
 }
