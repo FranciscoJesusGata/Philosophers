@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:24:14 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/20 10:58:34 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:52:19 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef enum e_states {
 typedef struct s_info
 {
 	pthread_mutex_t	print_status;
-	bool			printing_available;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
