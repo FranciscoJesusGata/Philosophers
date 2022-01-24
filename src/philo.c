@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/24 11:24:58 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:10:31 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	massacre(t_philosopher *philosophers, int philo_num)
 	}
 }
 
-void	dinner_vigilance(t_philosopher *philosophers, int philo_num)
+void	dinner_vigilance(t_philosopher *philosophers, int philo_num, int meals)
 {
 	int	i;
 	int	finished;
@@ -73,8 +73,15 @@ void	dinner_vigilance(t_philosopher *philosophers, int philo_num)
 	finished = 0;
 	while (philosophers[i].state != dead)
 	{
+		if (i < philo_num && philosophers[i].meals == meals)
+			finished++;
+		if (finished == philo_num)
+			break ;
 		if (i == philo_num - 1)
+		{
 			i = 0;
+			finished = 0;
+		}
 		else
 			i++;
 	}
@@ -83,7 +90,7 @@ void	dinner_vigilance(t_philosopher *philosophers, int philo_num)
 
 void	main_loop(t_philosopher *philosophers, int philo_num, t_info *info)
 {
-	dinner_vigilance(philosophers, philo_num);
+	dinner_vigilance(philosophers, philo_num, info->times_must_eat);
 	massacre(philosophers, philo_num);
 	info->crash_the_party = true;
 	pthread_mutex_unlock(&info->print_status);
