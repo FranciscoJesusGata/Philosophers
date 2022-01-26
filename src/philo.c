@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 22:24:52 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/24 15:52:00 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:05:12 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,21 @@ int	main(int argc, char *argv[])
 	t_info			info;
 	t_philosopher	*philosophers;
 	t_fork			*forks;
+	struct timeval	simulation_start;
 
 	if (!(parse_input(&info, argc, argv)))
 		return (1);
 	forks = place_forks(info.number_of_philosophers);
 	if (!forks)
 		return (1);
-	philosophers = sit_guests(forks, &info);
+	philosophers = sit_guests(forks, &info, &simulation_start);
 	if (!philosophers)
 	{
 		dismiss_guests(philosophers, forks,
 			info.number_of_philosophers, &info);
 		return (1);
 	}
-	start_dinner(philosophers, info.number_of_philosophers);
+	start_dinner(philosophers, info.number_of_philosophers, &simulation_start);
 	waiter_loop(philosophers, info.number_of_philosophers, &info);
 	dismiss_guests(philosophers, forks, info.number_of_philosophers, &info);
 }

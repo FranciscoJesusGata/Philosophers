@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:04:31 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/24 16:02:08 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:06:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_fork	*place_forks(int number_of_philosophers)
 	return (forks);
 }
 
-t_philosopher	*sit_guests(t_fork *forks, t_info *info)
+t_philosopher	*sit_guests(t_fork *forks, t_info *info,
+	struct timeval *start)
 {
 	int				i;
 	t_philosopher	*philosophers;
@@ -49,6 +50,7 @@ t_philosopher	*sit_guests(t_fork *forks, t_info *info)
 		philosophers[i].left_hand = false;
 		philosophers[i].right_hand = false;
 		philosophers[i].left_fork = &forks[i];
+		philosophers[i].simulation_start = start;
 		if (i == (info->number_of_philosophers - 1))
 			philosophers[i].right_fork = &forks[0];
 		else
@@ -75,11 +77,13 @@ void	dismiss_guests(t_philosopher *philosophers, t_fork *forks,
 	pthread_mutex_destroy(&info->print_status);
 }
 
-void	start_dinner(t_philosopher *philosophers, int number_of_philosophers)
+void	start_dinner(t_philosopher *philosophers, int number_of_philosophers,
+	struct timeval *simulation_start)
 {
 	int	i;
 
 	i = 0;
+	gettimeofday(simulation_start, NULL);
 	while (i < number_of_philosophers)
 	{
 		pthread_create(&philosophers[i].thread, NULL, philo_behaviour,

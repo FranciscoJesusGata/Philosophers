@@ -6,15 +6,18 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:56:11 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/24 15:58:12 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:20:37 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_state(t_philosopher *philo, long time, pthread_mutex_t *lock,
+void	print_state(t_philosopher *philo, pthread_mutex_t *lock,
 	bool *crash_the_party)
 {
+	long	time;
+
+	time = time_diff(philo->simulation_start);
 	pthread_mutex_lock(lock);
 	if (!*crash_the_party)
 	{
