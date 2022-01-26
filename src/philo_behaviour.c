@@ -6,19 +6,11 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:58:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2022/01/26 16:43:33 by fgata-va         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:00:38 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	drop_fork(t_fork *fork, bool *hand)
-{
-	pthread_mutex_lock(&fork->lock);
-	*hand = false;
-	fork->available = true;
-	pthread_mutex_unlock(&fork->lock);
-}
 
 void	leave_forks(t_philosopher *philo)
 {
@@ -48,17 +40,6 @@ void	catch_a_fork(t_philosopher *philo, t_fork *fork, bool *hand)
 	pthread_mutex_unlock(&fork->lock);
 }
 
-void	take_forks(t_philosopher *philo)
-{
-	catch_a_fork(philo, philo->left_fork, &philo->left_hand);
-	catch_a_fork(philo, philo->right_fork, &philo->right_hand);
-	if (philo->state != dead && philo->left_hand && philo->right_hand)
-	{
-		eat(philo);
-		leave_forks(philo);
-	}
-}
-
 void	*philo_behaviour(void *input)
 {
 	t_philosopher	*philo;
@@ -70,15 +51,20 @@ void	*philo_behaviour(void *input)
 	while (philo->state != dead
 		&& philo->meals != philo->info->times_must_eat)
 	{
+		catch_a_fork(philo, philo->left_fork, &philo->left_hand);
+		catch_a_fork(philo, philo->right_fork, &philo->right_hand);
 		if (time_diff(&philo->last_meal) >= philo->info->time_to_die)
+		{
 			philo->state = dead;
-		else if (philo->state == hungry)
-			take_forks(philo);
-		else if (philo->state == sleepy)
+			print_state(philo, &philo->info->print_status,
+				&philo->info->crash_the_party);
+		}
+		else if (philo->left_hand && philo->right_hand)
+		{
+			eat(philo);
+			leave_forks(philo);
 			go_to_sleep(philo);
+		}
 	}
-	if (philo->state == dead)
-		print_state(philo, &philo->info->print_status,
-			&philo->info->crash_the_party);
 	return (NULL);
 }
